@@ -6,3 +6,4 @@ pixi.lock
 pixi.toml
 
 .env
+.idea/
