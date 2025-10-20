@@ -34,6 +34,7 @@ class UPSC_Essay_Feedback(TypedDict):
     overall_language_feedback: str
 
     scores : Annotated[list[int], operator.add]
+    average_score : float
 
     final_summary : str
 
@@ -86,7 +87,9 @@ def generate_feedback_summary(state: UPSC_Essay_Feedback) -> dict:
     ]
     response = summary_model.invoke(messages)
     summary = response.content
-    return {"final_summary" : summary}
+
+    average_score = sum(state["scores"]) / len(state["scores"])
+    return {"final_summary" : summary, "average_score" : average_score}
 
 
 # Create the graph
